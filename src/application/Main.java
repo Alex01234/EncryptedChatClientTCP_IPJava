@@ -23,13 +23,14 @@ import javafx.scene.layout.VBox;
 
 
 /*
+Main:
 The class Main extends the class Application from JavaFX.
-The class is used to create a JavaFX application that works as a chat client that connects to a server.
+The class is used to create a JavaFX application that works as a chat client, which connects to a server.
 The chat client sends and receives SealedObject:s to/from the server.
 In order to encrypt outgoing SealedObject:s and decrypt incoming ones, a Cipher is used.
 The Cipher used is "AES/CBC/PKCS5PADDING", with a 128 bit IvParamaterSpec and a 128 bit SecretKeySpec.
 The IvParameterSpec and the SecretKeySpec are submitted by the user when the application is running.
-As such the submitted IvParameterSpec and the SecretKeySpec has to be the same for all the connected users in order to decrypt each others encrypted messages.
+As such the submitted IvParameterSpec and the SecretKeySpec has to be the same for all the connected users in order to decrypt encrypted messages.
 */
 public class Main extends Application {
 
@@ -66,12 +67,13 @@ public class Main extends Application {
 	private static String messageDialogString = "Message is empty. ";
 	
 	/*
+	start:
 	The method start is called when the JavaFX application is launched.
 	In the method start, a number of Labels, TextFields, Buttons and TextArea are created and added to Hbox:es and a VBox.
 	Those HBox:es and the VBox are added to a BorderPane. A Scene is created, which shows the BorderPane.
 	
-	Additionally, values for the property setOnAction are declared for the Buttons that exist in the application which determine functionality of the application.
-	Please see the comments below, where the values for the property setOnAction are declared, for more specific details.
+	Additionally, values for the property setOnAction are declared for the Buttons that exist in the application which determine the functionality of the application.
+	Please see the comments below for more specific details, where the values for the property setOnAction are declared.
 	*/
 	@Override
 	public void start(Stage stage) {
@@ -131,6 +133,7 @@ public class Main extends Application {
 			stage.setTitle("Sealed Chat Client");
 			
 			/*
+			connectButton:
 			Here the method setOnAction is defined for the Button connectButton.
 			First, the method checkConnectionDetails is called. If the returning value is true, the following is done:
 			The InetAddress host is set to the text that has been submitted to the TextField hostField,
@@ -163,6 +166,7 @@ public class Main extends Application {
 			});//connectButton
 			
 			/*
+			messageButton:
 			Here the method setOnAction is defined for the Button messageButton.
 			First, the method checkAllDetails is called. If the returning value is true, the following is done:
 			The String message is set to the text submitted to the TextField usernameField and the text submitted to the TextArea messageArea,
@@ -209,6 +213,7 @@ public class Main extends Application {
 	}//start
 	
 	/*
+	startReceiver:
 	The method startReceiver is used to create a thread and call the method start on that thread.
 	The threads run-method then calls the method receivingTask.
 	*/
@@ -226,6 +231,7 @@ public class Main extends Application {
 	}//startReceiver
 	
 	/*
+	receivingTask:
 	The method receivingTask is used to run an infinite while-loop, which listens to the Socket socket.
 	An ObjectInputStream is created from the Socket socket and from the ObjectInputStream, a SealedObject is read.
 	A Cipher is created using the passwords that have been submitted to the TextFields firstPasswordField and secondPasswordField.
@@ -254,6 +260,7 @@ public class Main extends Application {
 	}//receivingTask
 	
 	/*
+	checkConnectionDetails:
 	The method checkConnectionDetails is used to check if the TextFields hostField and portField contains text or are empty.
 	If either hostField or portField is empty, the color of the text on the Button connectButton is set to red and the method returns false.
 	If both hostField and portField contains text, the color of the text on connectButton is set to green and the method returns true.
@@ -269,6 +276,7 @@ public class Main extends Application {
 	}//checkConnectionDetails
 	
 	/*
+	checkUsernameDetails:
 	The method checkUsernameDetails is used to check if the TextField usernameField contains text or is empty.
 	If usernameField is empty, the method returns false. Otherwise, the method returns true.
 	*/
@@ -281,6 +289,7 @@ public class Main extends Application {
 	}//checkUsernameDetails
 	
 	/*
+	checkPasswordDetails:
 	The method checkPasswordDetails is used to check if the TextFields firstPasswordField and secondPasswordField contains text or are empty.
 	If firstPasswordField or secondPasswordField is empty, the method returns false.
 	If both firstPasswordField and secondPasswordField contains text, the method returns true.
@@ -295,6 +304,7 @@ public class Main extends Application {
 	}//checkPasswordDetails
 	
 	/*
+	checkPasswordBits:
 	The method checkPasswordBits is used to check that the length of submitted texts in the TextFields firstPasswordField and secondPasswordField is 16 bytes in length, which is equivalent to 128 bits.
 	If the submitted text to either firstPasswordField or secondPasswordField is not 16 bytes in length, the method returns false.
 	If both of the submitted texts to firstPasswordField and secondPasswordField are 16 bytes in length, the method returns true.
@@ -322,6 +332,7 @@ public class Main extends Application {
 	}//checkPasswordBits
 	
 	/*
+	checkMessageDetails:
 	The method checkMessageDetails is used to check if the TextArea messageArea is empty or if it contains text.
 	If messageArea is empty, the color of text on the Button messageButton is changed to red and the method returns false.
 	If messageArea contains text, the color of the text on messageButton is changed to green and the method returns true.
@@ -337,6 +348,7 @@ public class Main extends Application {
 	}//checkMessageDetails
 	
 	/*
+	checkAllDetails:
 	The method checkAllDetails is used to call a number of other utility methods, which are:
 	the methods checkConnectionDetails, checkUsernameDetails, checkPasswordDetails, checkPasswordBits and checkMessageDetails.
 	The returning boolean value of the above methods are saved locally and if a method returns false, a corresponding static String is appended to the local String dialog.
@@ -366,6 +378,7 @@ public class Main extends Application {
 	}//checkAllDetails
 	
 	/*
+	displayDialog:
 	The method displayDialog is used to show an Alert (which is a subclass of the class Dialog), to the user.
 	The text displayed to the user is the parameter (of the type String) which is passed to the method.
 	*/
@@ -379,6 +392,7 @@ public class Main extends Application {
 	}//displayDialog
 	
 	/*
+	main:
 	The method main is used to call the method launch, which launches the JavaFX application.
 	*/
 	public static void main(String[] args) {
